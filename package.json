@@ -1,0 +1,19 @@
+{
+  "name": "perchchallenge",
+  "version": "1.0.0",
+  "description": "Perch Coding Challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexShukhman/perchchallenge.git"
+  },
+  "author": "Alex Shukhman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexShukhman/perchchallenge/issues"
+  },
+  "homepage": "https://github.com/AlexShukhman/perchchallenge#readme"
+}
