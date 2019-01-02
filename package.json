@@ -4,7 +4,7 @@
   "description": "Perch Coding Challenge",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/AlexShukhman/perchchallenge/issues"
   },
-  "homepage": "https://github.com/AlexShukhman/perchchallenge#readme"
+  "homepage": "https://github.com/AlexShukhman/perchchallenge#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "http": "0.0.0",
+    "path": "^0.12.7",
+    "pug": "^2.0.3",
+    "serve-favicon": "^2.5.0",
+    "socket.io": "^2.2.0"
+  }
 }
