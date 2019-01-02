@@ -15,6 +15,7 @@ var express = require('express');
 var favicon = require('serve-favicon');
 var path = require('path');
 var bodyparser = require('body-parser');
+var logger = require('morgan');
 var http = require('http');
 
 /**
