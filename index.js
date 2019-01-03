@@ -17,6 +17,7 @@ var path = require('path');
 var bodyparser = require('body-parser');
 var logger = require('morgan');
 var http = require('http');
+var fs = require('fs');
 
 /**
  * **********************************************
@@ -108,7 +109,22 @@ io.on('connection', (client) => {
     console.log('Socket: Client Connected!');
 
     client.on('join', (data) => {
-        console.log('joined!');
-        console.log('Data: ' + data);
-    });
+		data = JSON.parse(data);
+        console.log('New socket client joined!');
+		console.log('Type: ' + data.type);
+		if (data.type == 'a'){
+			fs.writeFile('public/output/out.csv', '', ()=>{
+				console.log('Cleared datafile');
+			});
+		}
+	});
+	
+	client.on('sample', (data) => {
+		data = JSON.parse(data)
+		var txt = Object.values(data).toString() + '\n';
+		fs.appendFile('public/output/out.csv', txt, (err) => {
+			if (err) throw err;
+			io.emit('update', data);
+		});
+	});
 });
