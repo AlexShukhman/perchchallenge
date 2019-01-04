@@ -1,4 +1,4 @@
-# perchchallenge
+# <img src="public/images/logo.png" height=45> perchchallenge
 
 Coding Challenge for Perch
 
