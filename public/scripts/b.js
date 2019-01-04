@@ -1,5 +1,14 @@
 // Table Setup
-
+var tr1 = document.getElementById('row1');
+var tr2 = document.getElementById('row2');
+var html1;
+var html2;
+for (var i = 0; i < 5; i++) {
+    html1 = '<td>Box ' + i.toString() + '<br>Average: <p id="a'+ i.toString() + '"></p><br>Current: <p id="c' + i.toString() + '"></p><br><br></td>';
+    html2 = '<td>Box ' + (i+5).toString() + '<br>Average: <p id="a'+ (i+5).toString() + '"></p><br>Current: <p id="c' + (i+5).toString() + '"></p><br><br></td>';
+    tr1.insertAdjacentHTML("beforeend", html1);
+    tr2.insertAdjacentHTML("beforeend", html2);
+}
 
 // Canvas Setup
 var canvas = document.getElementById('bCanvas');
@@ -32,7 +41,7 @@ function replay() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = 'gray';
     getPoints(reDraw);
-    for (var i = 0; i < boxes.length; i++) {
+    for (var i in boxes) {
         drawBox(boxes[i], 'gray');
         drawNumber(boxes[i][0][0], boxes[i][1][0], i)
     }
@@ -105,7 +114,7 @@ function getPoints(callback) {
 }
 
 function pointsSetup(o) {
-    for (var i = 0; i < o.x.length; i++){
+    for (var i in o.x){
         analyzePoint(o.x[i], o.y[i]);
     }
 }
@@ -118,7 +127,7 @@ function analyzePoint(x, y) {
     else if (allPoints.length < 2){
         var x0 = allPoints[allPoints.length-1][0]
         var y0 = allPoints[allPoints.length-1][1]
-        for (var i = 0; i < boxes.length; i++) {
+        for (var i in boxes) {
             var b0 = checkBox(i, x0, y0);
             var b1 = checkBox(i, x, y);
             if (b0) {
@@ -140,33 +149,52 @@ function analyzePoint(x, y) {
     var y0 = allPoints[allPoints.length-2][1]
     var x1 = allPoints[allPoints.length-1][0]
     var y1 = allPoints[allPoints.length-1][1]
-    for (var i = 0; i < boxes.length; i++) {
+    for (var i in boxes) {
         var b0 = checkBox(i, x0, y0);
         var b1 = checkBox(i, x1, y1);
         var b2 = checkBox(i, x, y);
+        var v;
         if (b1) {
             if (b2) {
                 drawBox(boxes[i], 'green');
                 if (b0) {
                     velocities[i].push(velocity(x0, y0, x1, y1));
+                    v = velocity(x1, y1, x, y);
                 }
             }
             else {
                 drawBox(boxes[i], 'gray');
                 velocities[i].push(velocity(x1, y1, x, y));
+                v = 0;
             }
         }
         else if (b2) {
             drawBox(boxes[i], 'green');
             velocities[i].push(velocity(x1, y1, x, y));
+            v = velocity(x1, y1, x, y);
         }
         else {
             drawBox(boxes[i], 'gray');
+            v = 0;
         }
+        updateAvg(i);
+        updateCurrent(i, v);
     }
     allPoints.push([x, y]);
 }
 
 function velocity(x0, y0, x1, y1) {
     return 10 * Math.sqrt((x0-x1)**2+(y0-y1)**2);
+}
+
+function updateCurrent(bnum, vel) {
+    e = document.getElementById('c' + bnum.toString());
+    e.innerHTML = Math.round(vel).toString() + "px/s";
+}
+
+function updateAvg(bnum) {
+    e = document.getElementById('a' + bnum.toString());
+    e.innerHTML = Math.round(velocities[bnum].reduce((a,b)=>{
+        return a+b;
+    }, 0)/velocities[bnum].length).toString() + 'px/s';
 }

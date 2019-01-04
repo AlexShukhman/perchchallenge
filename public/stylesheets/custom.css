@@ -1,11 +1,12 @@
 /* Custom CSS, some from me, some from Perch */
 
 .bigText {
-    font-size: 5vh;
+    font-size: 8vh;
     white-space: nowrap;
 }
 
 button.bigText {
+    font-size: 3vh;
     background: none;
     border: none;
     margin: auto;
@@ -27,6 +28,16 @@ button.bigText {
 
 .drawingCanvas {
     box-shadow: 2px 2px 1px #c3c3c3;
+}
+
+.btable {
+    font-size: 1.25vh;
+    position: relative;
+    width: 100%;
+}
+
+.brow {
+    width: 100%;
 }
 
 /* Below is from the Perch Site */
